@@ -15,7 +15,8 @@
 				$_SESSION['user']= $row['userid'];
 				header("location:admin.php");
 			}
-			else {
+			if($row['role'] == 2) {
+				$_SESSION['user']= $row['userid'];
 				header("location:auditors.php");
 			}
 		}

@@ -1,6 +1,10 @@
 <?php
     include("session.php");
-    include("sidepan.php");    
+    include("sidepan.php");
+    $sql = mysql_query("SELECT * FROM `empmonitoring` WHERE status = 1");
+	$result = mysql_num_rows($sql);
+	$sql = mysql_query("SELECT * FROM `socmonitoring` WHERE status = 1");
+	$result1 = mysql_num_rows($sql);
 
 ?>
 
@@ -14,15 +18,15 @@
 						<div class="col-lg-3 col-md-6 col-sm-6">
 							<div class="card card-stats">
 								<div class="card-header" data-background-color="orange">
-									<i class="material-icons">content_copy</i>
+									<i class="fa fa-users"></i>
 								</div>
 								<div class="card-content">
-									<p class="category">Used Space</p>
-									<h3 class="title">49/50<small>GB</small></h3>
+									<p class="category">Auditors</p>
+									<h3 class="title"><?php echo $result; ?></h3>
 								</div>
 								<div class="card-footer">
 									<div class="stats">
-										<i class="material-icons text-danger">warning</i> <a href="#pablo">Get More Space...</a>
+										<a href="admin_viewemp.php">View Auditors</a>
 									</div>
 								</div>
 							</div>
@@ -33,12 +37,12 @@
 									<i class="material-icons">store</i>
 								</div>
 								<div class="card-content">
-									<p class="category">Revenue</p>
-									<h3 class="title">$34,245</h3>
+									<p class="category">Societies</p>
+									<h3 class="title"><?php echo $result1; ?></h3>
 								</div>
 								<div class="card-footer">
 									<div class="stats">
-										<i class="material-icons">date_range</i> Last 24 Hours
+										<a href="admin_viewsoc.php">View Societies</a>
 									</div>
 								</div>
 							</div>

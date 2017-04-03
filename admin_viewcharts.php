@@ -1,14 +1,11 @@
 <?php
     include("session.php");
-    include("sidepan.php");    
-		$sql = "Select
+    include("sidepan.php");
+			$sql = "Select
   emprofile.EmpID,
   emprofile.Fname,
   emprofile.Lname,
-  emprofile.Sname,
-  emprofile.Gender,
-  emprofile.DOB,
-  emprofile.Cell,
+  emprofile.Sname,  
   subdivision.SubDiv,
   designations.Designation,
   empmonitoring.Status
@@ -35,10 +32,13 @@ Where
 
 
 ?>
+
+?>
+	
 			
 			<div class="content">
 				<div class="container-fluid">
-                    <form action="" method="post">	
+					<form action="" method="post">	
                             <div class="form-group  is-empty col-md-2">
 								<input type="text" class="form-control" placeholder="Search" required name="name" autocomplete="off">
 								<span class="material-input"></span>
@@ -47,10 +47,7 @@ Where
                                 <button type="submit" class="btn btn-white btn-round btn-just-icon">
                                     <i class="material-icons">search</i><div class="ripple-container"></div>
                                 </button>
-                            </div>    
-                            <div class="col-md-2">
-                                <a href="admin_addempprof.php"> <button type="button" class="btn btn-primary">Add New Employee</button> </a>
-                            </div>                            
+                            </div>                                           
 
                     </form>
                     <div class="card">
@@ -66,10 +63,8 @@ Where
 								<th>Employee ID </th>
 								<th>Name of th Employee</th>					
 								<th>Designation</th>
-								<th>Sub Division</th>
-								<th>Mobile Number</th>
-								<th>Edit</th>
-								<th>Relieve</th>
+								<th>Sub Division</th>								
+								<th>Charts</th>								
 							</tr>
 							</thead>
 
@@ -82,13 +77,10 @@ Where
 									echo "<td>".$result['Fname']." ".$result['Lname']." ".$result['Sname']."</td>";					
 									echo "<td>".$result['Designation']."</td>";
 									echo "<td>".$result['SubDiv']."</td>";
-									echo "<td>".$result['Cell']."</td>";
+								
 									echo "<td>
-											  <a href='admin_editemp.php?empid=".$result['EmpID']."'><i class='fa fa-pencil'></i></a>							  
-										  </td>";
-									echo "<td>
-											  <a href='admin_relemp.php?empid=".$result['EmpID']."'><i class='fa fa-close'></i></a>							  
-										  </td></tr>";
+											  <a href='admin_empchartview.php?empid=".$result['EmpID']."'><i class='fa fa-server'></i></a>							  
+										  </td>";									
 									$slno = $slno +1;					
 								}				
 							}
@@ -97,6 +89,8 @@ Where
 
 						</div>
                     </div>    
+
+                    
 
 				</div>
 			</div>
@@ -131,7 +125,8 @@ Where
 	<!-- Material Dashboard javascript methods -->
 	<script src="assets/js/material-dashboard.js"></script>
 
-	
+	<!-- Material Dashboard DEMO methods, don't include it in your project! -->
+	<script src="assets/js/demo.js"></script>
 
 	<script type="text/javascript">
     	$(document).ready(function(){

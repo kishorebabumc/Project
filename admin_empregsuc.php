@@ -14,8 +14,17 @@
 		$city = $_POST['city'];
 		$district = $_POST['district'];
 		$cell = $_POST['cell'];
+		$subdivid = $_POST['SubDivID'];
+		$degid = $_POST['DegID'];
+		$doj = $_POST['doj'];
 		$sql = "INSERT INTO `emprofile` (`EmpID`, `Fname`, `Lname`, `Sname`, `Gender`, `DOB`, `MaritalStatus`, `Add1`, `Add2`, `City`, `District`, `Cell`, `rem`, `Status`) VALUES ('$empid', '$fname', '$lname', '$sname', '$gender', '$dob', '$maritalstatus', '$add1', '$add2', '$city', '$district', '$cell', '', '1')";
-		$result = mysql_query($sql) or die(mysql_error());		
+		$result = mysql_query($sql) or die(mysql_error());	
+		$sql4 = mysql_query("INSERT INTO `empmonitoring` (`ID`, `EmpID`, `SubDivID`, `DegID`, `DOJ`, `DOL`, `Rem`, `Status`) VALUES (NULL, '$empid', '$subdivid', '$degid', '$doj', '', 'Joined', '1')");		
+		$sql3 = mysql_query("INSERT INTO `users` (`id`, `userid`, `password`, `role`,`status`) VALUES (NULL, '$empid', '123456','2','1')");
+		$sql1 = mysql_query("SELECT * FROM designations WHERE ID = '$degid' ");
+		$row1 = mysql_fetch_assoc($sql1);
+		$sql2 = mysql_query("SELECT * FROM subdivision WHERE ID = '$subdivid' ");		
+		$row2 = mysql_fetch_assoc($sql2);
 	}
 	else {
 		header("location:admin.php");	
@@ -27,71 +36,77 @@
 			<div class="content">
 				<div class="container-fluid">
 				
-				<h3 class="blank1">Employee Registered Succesfully </h3> 
-					<div class="row">
-						<div class="col-md-3">
-							<label class="control-label">Employee ID</label>
-							<?php echo $empid; ?>
-						</div>
-						<div class="col-md-3">
-							<label class="control-label">First Name</label>
-							<?php echo $fname; ?>
-						</div>
-						<div class="col-md-3">
-							<label class="control-label">Last Name</label>
-							<?php echo $lname; ?>
-						</div>
-						<div class="col-md-3">
-							<label class="control-label">Surname</label>
-							<?php echo $sname; ?>
-						</div>
-					</div>
-					<div class = "row">
-						<div class="col-md-3">
-							<label class="control-label">Gender</label>
-							<?php echo $gender; ?>
-						</div>
-						<div class="col-md-3">
-							<label class="control-label">Date of Birth</label>
-							<?php echo $dob; ?>
-						</div>
-						<div class="col-md-3">
-							<label class="control-label">Marital Status</label>
-							<?php echo $maritalstatus; ?>
-						</div>
-						<div class="col-md-3">
-							<label class="control-label">Address 1</label>
-							<?php echo $add1; ?>
-						</div>
-					</div>
-					<div class = "row">	
-						<div class="col-md-3">
-							<label class="control-label">Address 2</label>
-							<?php echo $add2; ?>
-						</div>
-						<div class="col-md-3">
-							<label class="control-label">City</label>
-							<?php echo $city; ?>
-						</div>
-						<div class="col-md-3">
-							<label class="control-label">District</label>
-							<?php echo $district; ?>
-						</div>
-						<div class="col-md-3">
-							<label class="control-label">Mobile Number</label>
-							<?php echo $cell; ?>
-						</div>
-					</div>
-					<div class = "row">
-						<div class="col-md-3">
-							<label style="color:green"> Employee Register Succesfully, Add Designation and Working Place of the Employee</label>					
-							<form method="POST" action = "admin_addemp.php">
-								<input type="hidden" value = "<?php echo $empid; ?>" name = "empid">							
-								<input type="hidden" value = "<?php echo $fname; ?>" name = "fname">							
-								<input type="hidden" value = "<?php echo $lname; ?>" name = "lname">							
-								<input type="hidden" value = "<?php echo $sname; ?>" name = "sname">							
-								<button type="submit" class="btn-success">Click here</button>
-							</form>
+					<div class="card">
+						<div class="card-header" data-background-color="orange">
+							<h4 class="title">Employee Registered Successfully</h4>
+							<p class="category"></p>
+						</div>							
+						<div class="card-content table-responsive"> 
+							<div class="row">
+								
+								<label class="col-md-1">Employee ID</label>
+								<div class="col-md-2"><?php echo $empid; ?></div>
+								
+							
+								<label class="col-md-1">First Name</label>
+								<div class="col-md-2"><?php echo $fname; ?></div>
+							
+							
+								<label class="col-md-1">Last Name</label>
+								<div class="col-md-2"><?php echo $lname; ?></div>
+							
+							
+								<label class="col-md-1">Surname</label>
+								<div class="col-md-2"><?php echo $sname; ?></div>
+								
+							</div>
+							<div class = "row">
+								
+									<label class="col-md-1">Gender</label>
+									<div class="col-md-2"><?php echo $gender; ?></div>
+								
+								
+									<label class="col-md-1">Date of Birth</label>
+									<div class="col-md-2"><?php echo $dob; ?></div>
+								
+								
+									<label class="col-md-1">Marital Status</label>
+									<div class="col-md-2"><?php echo $maritalstatus; ?></div>
+								
+								
+									<label class="col-md-1">Address 1</label>
+									<div class="col-md-2"><?php echo $add1; ?></div>
+								
+							</div>
+							<div class = "row">	
+								
+									<label class="col-md-1">Address 2</label>
+									<div class="col-md-2"><?php echo $add2; ?></div>
+								
+								
+									<label class="col-md-1">City</label>
+									<div class="col-md-2"><?php echo $city; ?></div>
+								
+								
+									<label class="col-md-1">District</label>
+									<div class="col-md-2"><?php echo $district; ?></div>
+								
+								
+									<label class="col-md-1">Mobile Number</label>
+									<div class="col-md-2"><?php echo $cell; ?></div>
+								
+							</div>
+							<div class = "row">
+								<label class="col-md-1">Designation</label>
+								<div class="col-md-2"><?php echo $row1['Designation']; ?> </div>
+								<label class="col-md-1">Sub Division</label>
+								<div class="col-md-2"><?php echo $row2['SubDiv']; ?> </div>
+								<label class="col-md-1">Date of Joining</label>
+								<div class="col-md-2"><?php echo $doj; ?> </div>
+								<div class="col-md-3">
+									<label style="color:green"> Employee Register Succesfully <a href = "admin.php"><button class="btn btn-success">Home</button></a></label>
+								</div>
+							</div>	
 						</div>
 					</div>	
 				</div>

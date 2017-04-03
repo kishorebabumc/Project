@@ -1,14 +1,43 @@
 <?php
     include("session.php");
-    include("auditor_sidepan.php");
+    include("sidepan.php");
+	if($_SERVER['REQUEST_METHOD'] == "POST") {
+		$empid = $_POST['empid'];
+		$fname = $_POST['fname'];
+		$lname = $_POST['lname'];
+		$sname = $_POST['sname'];		
+		$dol = $_POST['dol'];
+		$rem = $_POST['rem'];
+		$sql = mysql_query("UPDATE empmonitoring SET DOL ='$dol', Rem ='$rem', Status=0 WHERE EmpID='$empid' AND Status = 1");		
+	}
+	else {
+		header("location:admin.php");
+	}	
 
 ?>
 	
 			
 			<div class="content">
 				<div class="container-fluid">
-                    
-
+                    <div class="card">
+						<div class="card-header" data-background-color="orange">
+							<h4 class="title">Employee Relieved Succesfully</h4>
+							<p class="category"></p>
+						</div>							
+						<div class="card-content table-responsive">	
+							<div class="row">		
+								<div class="form-group">	
+									<label class="col-md-1">Employee ID</label>
+									<div class="col-md-2"><?php echo $empid; ?> </div>						
+									<label class="col-md-1">Employee Name</label>
+									<div class="col-md-2"><?php echo $fname." ".$lname." ".$sname; ?> </div>						
+									<label class="col-md-1">Date of Relieve</label>
+									<div class="col-md-2"><?php echo $dol; ?> </div>						
+									<div class="col-md-4"><a href="admin.php"><button class ="btn btn-primary"> Home </button></a></div>						
+								</div>	
+							</div>
+						</div>
+					</div>	
 				</div>
 			</div>
 

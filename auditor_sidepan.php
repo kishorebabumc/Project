@@ -1,3 +1,10 @@
+<?php
+	if(isset($_SESSION['user'])){
+		$empid = $_SESSION['user'];	
+		$sql = mysql_query("SELECT * FROM `emprofile` WHERE EmpID = '$empid'");
+		$result = mysql_fetch_assoc($sql);
+	}	
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -36,48 +43,18 @@
 
 			<div class="logo">
 				<a href="" class="simple-text">
-					DCAO, VJA
+					Auditors Panel 
 				</a>
 			</div>
 
 	    	<div class="sidebar-wrapper">
 	            <ul class="nav">
 	                <li class="active">
-	                    <a href="admin.php">
-	                        <i class="fa fa-dashboard"></i>
-	                        <p>Dashboard</p>
-	                    </a>
-	                </li>
-	                <li>
-	                    <a href="admin_viewemp.php">
-	                        <i class="fa fa-user"></i>
-	                        <p>Employees</p>
-	                    </a>
-	                </li>
-	                <li>
-	                    <a href="admin_viewsoc.php">
-	                        <i class="fa fa-object-group"></i>
-	                        <p>Societies</p>
-	                    </a>
-	                </li>
-	                <li>
-	                    <a href="">
-	                        <i class="fa fa-tasks"></i>
-	                        <p>Audit Programme</p>
-	                    </a>
-	                </li>
-					<li>
-	                    <a href="admin_viewcharts.php">
+	                    <a href="auditor_charts.php">
 	                        <i class="fa fa-server"></i>
 	                        <p>Charts</p>
 	                    </a>
-	                </li>
-					<li>
-	                    <a href="">
-	                        <i class="fa fa-flag"></i>
-	                        <p>Reports</p>
-	                    </a>
-	                </li>	
+	                </li>	                
 	                <li>
 	                    <a href="logout.php">
 	                        <i class="fa fa-sign-out"></i>
@@ -91,36 +68,11 @@
 		<div class="main-panel">
 			<nav class="navbar navbar-transparent navbar-absolute">
 				<div class="container-fluid">
-					<div class="navbar-header">
-						<button type="button" class="navbar-toggle" data-toggle="collapse">
-							<span class="sr-only">Toggle navigation</span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-						</button>
-						
-					</div>
+					
 					<div class="collapse navbar-collapse">
-						<ul class="nav navbar-nav navbar-right">
-							<li>
-								<a href="#pablo" class="dropdown-toggle" data-toggle="dropdown">
-									<i class="material-icons">dashboard</i>
-									<p class="hidden-lg hidden-md">Dashboard</p>
-								</a>
-							</li>
-							<li class="dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-									<i class="material-icons">notifications</i>
-									<span class="notification">5</span>
-									<p class="hidden-lg hidden-md">Notifications</p>
-								</a>
-								<ul class="dropdown-menu">
-									<li><a href="#">Mike John responded to your email</a></li>
-									<li><a href="#">You have 5 new tasks</a></li>
-									<li><a href="#">You're now friend with Andrew</a></li>
-									<li><a href="#">Another Notification</a></li>
-									<li><a href="#">Another One</a></li>
-								</ul>
+						<ul class="nav navbar-nav navbar-right">							
+							<li >
+								<a><?php echo $result['Fname']." ".$result['Lname']." ".$result['Sname']; ?></a>				
 							</li>
 							<li>
 								<a href="#pablo" class="dropdown-toggle" data-toggle="dropdown">
@@ -128,7 +80,7 @@
 	 							   <p class="hidden-lg hidden-md">Profile</p>
 		 						</a>
                                 <ul class="dropdown-menu">
-									<li><a href="changepass.php">Change Password</a></li>
+									<li><a href="auditor_changepass.php">Change Password</a></li>
 									<li><a href="logout.php">Logout</a></li>									
 								</ul>
 							</li>

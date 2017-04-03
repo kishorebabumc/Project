@@ -8,5 +8,5 @@
 	$loginuser = $row['userid'];
 	if(!isset($loginuser)){
 		header("location:sesexp.html");
-	}	
+	}
 ?>
