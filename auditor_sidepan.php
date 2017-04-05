@@ -1,6 +1,6 @@
 <?php
-	if(isset($_SESSION['user'])){
-		$empid = $_SESSION['user'];	
+	if(isset($_SESSION['auditor'])){
+		$empid = $_SESSION['auditor'];	
 		$sql = mysql_query("SELECT * FROM `emprofile` WHERE EmpID = '$empid'");
 		$result = mysql_fetch_assoc($sql);
 	}	

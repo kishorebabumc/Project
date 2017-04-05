@@ -12,11 +12,11 @@
 		if($count == 1){			
 			$row = mysql_fetch_assoc($result);
 			if($row['role'] == 1){				
-				$_SESSION['user']= $row['userid'];
+				$_SESSION['admin']= $row['userid'];
 				header("location:admin.php");
 			}
 			if($row['role'] == 2) {
-				$_SESSION['user']= $row['userid'];
+				$_SESSION['auditor']= $row['userid'];
 				header("location:auditors.php");
 			}
 		}

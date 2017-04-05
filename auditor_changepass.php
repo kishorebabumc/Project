@@ -1,5 +1,5 @@
 <?php
-    include("session.php");
+    include("auditor_session.php");
     include("auditor_sidepan.php");
 		$error = "";
 	$error1 = ""; 

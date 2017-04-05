@@ -5,35 +5,30 @@
 	$sql2 = mysql_query("SELECT * FROM socstatus") or die(mysql_error());
 	$sql3 = mysql_query("SELECT * FROM funcregistrars") or die(mysql_error());
 	$sql4 = mysql_query("SELECT * FROM subdivision") or die(mysql_error());
-	$sql = "Select
-			  socmonitoring.SocID, 
+	$sql = "SELECT
 			  societies.Name,
+			  socmonitoring.FinStatus,
 			  societies.`Reg No.`,
-			  societies.Address,
-			  societies.District,			  
 			  socmonitoring.NameCustodian,
 			  socmonitoring.Cell,
-			  societies.DOR,
-			  socmonitoring.FinStatus,
 			  soctypes.Types,
-			  mandals.Mandal,
+			  societies.Address,
+			  subdivision.SubDiv,
+			  societies.District,
+			  societies.AuditComp,
+			  societies.DOR,
 			  socstatus.SocStatus,
 			  funcregistrars.Registrar,
-			  subdivision.SubDiv
-			From
-			  socmonitoring Inner Join
+			  socmonitoring.SocID,
+			  mandals.Mandal
+			FROM
 			  societies
-				On socmonitoring.SocID = societies.SocID Inner Join
-			  soctypes
-				On societies.Type = soctypes.ID Inner Join
-			  mandals
-				On societies.MandalID = mandals.ID Inner Join
-			  socstatus
-				On socmonitoring.StatusID = socstatus.ID Inner Join
-			  funcregistrars
-				On societies.RegistrarID = funcregistrars.ID Inner Join
-			  subdivision
-                On societies.SubDivID = subdivision.ID			  
+			  INNER JOIN socmonitoring ON societies.SocID = socmonitoring.SocID
+			  INNER JOIN soctypes ON socmonitoring.TypeID = soctypes.ID
+			  INNER JOIN subdivision ON societies.SubDivID = subdivision.ID
+			  INNER JOIN socstatus ON socmonitoring.StatusID = socstatus.ID
+			  INNER JOIN funcregistrars ON societies.RegistrarID = funcregistrars.ID	
+			  INNER JOIN mandals ON societies.MandalID = mandals.ID  
 			Where
 			  socmonitoring.Status = 1";
 			  
@@ -137,7 +132,7 @@
 								while($result = mysql_fetch_assoc($sql))
 								{ 	
 									echo "<tr><td>".$slno."</td>";	
-									echo "<td>".$result['Name']." ".$result['Reg No.']."</td>";					
+									echo "<td>".$result['Name']." ".$result['Reg No.']." ".$result['Types']."</td>";					
 									echo "<td>".$result['Types']."</td>";					
 									echo "<td>".$result['Address'].", ".$result['Mandal'].", Krishna"."</td>";
 									echo "<td>".$result['NameCustodian'].", ".$result['Cell']."</td>";

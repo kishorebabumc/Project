@@ -1,7 +1,7 @@
 <?php
 	include("config.php");
 	session_start();
-	$user = $_SESSION['admin'];
+	$user = $_SESSION['auditor'];
 	$sql = "SELECT * FROM users WHERE userid = '$user'";
 	$result = mysql_query($sql);
 	$row = mysql_fetch_assoc($result);
