@@ -61,7 +61,7 @@
 									<label class="col-md-1">Sub Division</label>
 									<div class="col-md-2">
 										<select name="SubDivID" class="form-control">								
-											<option value = "<?php echo $$currentsubdiv['ID']; ?> "> <?php echo $currentsubdiv['SubDiv']; ?></option>
+											<option value = "<?php echo $currentsubdiv['ID']; ?> "> <?php echo $currentsubdiv['SubDiv']; ?></option>
 											<?php while ($row2 = mysql_fetch_assoc($subdiv)) 
 												echo "<option value ='".$row2['ID']."'>".$row2["SubDiv"]."</option>";								
 											 ?>

@@ -8,7 +8,7 @@
 		$empid = $_SESSION['temp'];		
 		$sql = "SELECT
 			  allotment.AuditComp,
-			  allotment.YearAudit,
+			  years.AuditYear,
 			  societies.Name,
 			  societies.`Reg No.`,
 			  societies.Address,
@@ -24,6 +24,7 @@
 			  INNER JOIN socmonitoring ON societies.SocID = socmonitoring.SocID
 			  INNER JOIN socstatus ON socmonitoring.StatusID = socstatus.ID
 			  INNER JOIN emprofile ON emprofile.EmpID = allotment.EmpID
+			  INNER JOIN years ON years.ID = allotment.YearAudit
 			Where
 			  allotment.Status = 1 AND allotment.EmpID = '$empid' AND socmonitoring.Status = 1";
 		$sql = mysql_query($sql) or die(mysql_error());
@@ -52,7 +53,7 @@
 				<div class="container-fluid">
                     <div class="card">
 						<div class="card-header" data-background-color="orange">
-							<h4 class="title">Chart of <?php echo $result1['Fname']." ".$result1['Lname']." ".$result1['Sname']; ?></h4>
+							<h4 class="title">Chart of <?php echo $result1['Sname']." ".$result1['Fname']." ".$result1['Lname'].", ".$result1['Designation'].", ".$result1['SubDiv']; ?></h4>
 							<p class="category"></p>
 						</div>
 						<div class="card-content table-responsive">
@@ -61,8 +62,8 @@
 							<tr>
 								<th>Sl.No.</th>
 								<th>Society Name </th>
-								<th>Address</th>					
-								<th>Audit Completed</th>
+								<th>Type </th>
+								<th>Address</th>													
 								<th>Audit Allotted Upto</th>								
 								<th>Re-Allotment</th>								
 							</tr>
@@ -73,10 +74,10 @@
 								while($result = mysql_fetch_assoc($sql))
 								{ 	
 									echo "<tr><td>".$slno."</td>";	
-									echo "<td>".$result['Name']."</td>";					
-									echo "<td>".$result['Address']." ".$result['Mandal']."</td>";					
-									echo "<td>".$result['AuditComp']."</td>";
-									echo "<td>".$result['YearAudit']."</td>";
+									echo "<td>".$result['Name']."</td>";
+									echo "<td>".$result['Types']."</td>";									
+									echo "<td>".$result['Address']." ".$result['Mandal']."</td>";														
+									echo "<td>".$result['AuditYear']."</td>";
 								
 									echo "<td>
 											  <a href='admin_empchartview.php?empid=".""."'><i class='fa fa-server'></i></a>							  

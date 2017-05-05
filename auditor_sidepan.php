@@ -50,7 +50,7 @@
 	    	<div class="sidebar-wrapper">
 	            <ul class="nav">
 	                <li class="active">
-	                    <a href="auditor_charts.php">
+	                    <a href="auditors.php">
 	                        <i class="fa fa-server"></i>
 	                        <p>Charts</p>
 	                    </a>

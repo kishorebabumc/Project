@@ -1,23 +1,24 @@
 <?php
-    include("session.php");
-    include("sidepan.php");
-		if(isset($_GET['socid'])){
+    include("auditor_session.php");
+    include("auditor_sidepan.php");
+	if(isset($_GET['socid'])){
 		$_SESSION['temp'] = $_GET['socid'];
 	}
 	if(isset($_SESSION['temp'])){		
 		$socid = $_SESSION['temp'];					
-		$status = mysql_query("SELECT * FROM socstatus") or die(mysql_error());				
+		$mandal = mysql_query("SELECT * FROM mandals") or die(mysql_error());				
 		$sql = mysql_query("Select
 						  societies.Name,
 						  societies.`Reg No.`,
 						  soctypes.Types,
+						  soctypes.ID,
 						  societies.Address,
 						  mandals.Mandal,
 						  subdivision.SubDiv,
 						  socmonitoring.NameCustodian,
 						  socmonitoring.Cell,
 						  socmonitoring.SocID,
-						  socmonitoring.PresentDate,
+						  socmonitoring.PresentDate,						  
 						  socstatus.SocStatus,
 						  socmonitoring.StatusID,
 						  socmonitoring.FinStatus
@@ -41,15 +42,16 @@
 	else{
 		header("location:admin.php");
 	}
+	
 ?>
 	
 			
 			<div class="content">
-				<div class="container-fluid">                  	
-					<form role="form" class="form-horizontal" action="admin_soceditsuc.php" method="post">
+				<div class="container-fluid">
+				<form role="form" class="form-horizontal" action="auditor_soceditsuc.php" method="post">
 						<div class="card">
 							<div class="card-header" data-background-color="green">
-								<h4 class="title">Add New Society</h4>
+								<h4 class="title">Edit Society</h4>
 								<p class="category"></p>
 							</div>
 							<div class="card-content table-responsive">	
@@ -64,19 +66,23 @@
 									</div>
 									<label class="col-md-1">Type of the Society</label>
 									<div class="col-md-2">
-										<?php echo $workdata['Types']; ?>							
+										<?php echo $workdata['Types']; ?>
+										<input type="hidden" name="soctype" value ="<?php echo $workdata['ID']; ?>">		
 									</div>
 									
 									<label class="col-md-1">Address</label>
-									<div class="col-md-2">
-										<?php echo $workdata['Address'].", ".$workdata['Mandal'].", Krishna "; ?>
-										<input type="hidden" name="address" value ="<?php echo $workdata['Address']; ?>">
-										<input type="hidden" name="mandal" value ="<?php echo $workdata['Mandal']; ?>">								
+									<div class = "col-md-2">
+										<input type ="text" value = "<?php echo $workdata['Address']; ?>" name ="address" >	
 									</div>
 									
-									<label class="col-md-1">Sub Division</label>
-									<div class="col-md-2">
-										<?php echo $workdata['SubDiv']; ?>							
+									<label class="col-md-1">Mandal</label>
+									<div class = "col-md-2">
+										<select name="mandal" class="form-control1">		
+											<option value = "<?php echo $workdata['ID']; ?> "> <?php echo $workdata['Mandal']; ?></option>
+											<?php while ($row1 = mysql_fetch_assoc($mandal)) 
+												echo "<option value ='".$row1['ID']."'>".$row1["Mandal"]."</option>";								
+											 ?>
+										</select>
 									</div>												
 								</div>
 								<div class="form-group">
@@ -90,21 +96,13 @@
 									</div>
 									<label class="col-md-1">Status of the Society</label>
 									<div class = "col-md-2">
-										<select name="status" class="form-control1">		
-											<option value = "<?php echo $workdata['StatusID']; ?> "> <?php echo $workdata['SocStatus']; ?></option>
-											<?php while ($row1 = mysql_fetch_assoc($status)) 
-												echo "<option value ='".$row1['ID']."'>".$row1["SocStatus"]."</option>";								
-											 ?>
-										</select>
+										<?php echo $workdata['SocStatus']; ?>
+										<input type="hidden" name="status" value ="<?php echo $workdata['StatusID']; ?>">		
 									</div>
 									<label class="col-md-1">Financial Status</label>
 									<div class = "col-md-2">
-										<select name="finstatus" class="form-control1">		
-											<option value = "<?php echo $workdata['FinStatus']; ?> "> <?php echo $workdata['FinStatus']; ?></option>
-											<option value = "Aided"> Aided </option>
-											<option value = "Un-Aided"> Un-Aided</option>
-											
-										</select>
+										<?php echo $workdata['FinStatus']; ?>
+										<input type="hidden" name="finstatus" value ="<?php echo $workdata['FinStatus']; ?>">	
 									</div>
 								</div>
 								<div class="form-group">
@@ -119,7 +117,9 @@
 								</div>						
 							</div>
 						<div>	
-					</form>  
+					</form>
+                    
+
 				</div>
 			</div>
 
@@ -158,8 +158,10 @@
 
 	<script type="text/javascript">
     	$(document).ready(function(){
+
 			// Javascript method's body can be found in assets/js/demos.js
         	demo.initDashboardPageCharts();
+
     	});
 	</script>
 

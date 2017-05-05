@@ -1,8 +1,9 @@
 <?php
-    include("session.php");
-    include("sidepan.php");
-		if($_SERVER['REQUEST_METHOD'] == "POST") {
+    include("auditor_session.php");
+    include("auditor_sidepan.php");
+	if($_SERVER['REQUEST_METHOD'] == "POST") {
 		$socid = $_POST['socid'];
+		$soctype = $_POST['soctype'];
 		$socname = $_POST['socname'];
 		$regno = $_POST['regno'];
 		$address = $_POST['address'];
@@ -18,18 +19,18 @@
 		
 		$test = mysql_query("SELECT * FROM socmonitoring WHERE SocID='$socid' AND Status = 1");
 		$count = mysql_num_rows($test);
-		$result = mysql_fetch_assoc($test);
-		
+		$result = mysql_fetch_assoc($test);		
 		
 		if($count == 1){
-			$sql = mysql_query("UPDATE socmonitoring SET ClosingDate ='$closingdate', Status=0 WHERE SocID='$socid' AND Status = 1");
-			$sql = mysql_query("INSERT INTO `socmonitoring` (`ID`, `SocID`, `NameCustodian`, `Cell`, `StatusID`, `FinStatus`,`PresentDate`, `ClosingDate`, `Rem`, `Status`) VALUES (NULL, '$socid', '$custodian', '$cell', '$status', '$finstatus', '$presentdate', '','Modified', 1)") or die(mysql_error());						
+			$sql = mysql_query("UPDATE socmonitoring SET ClosingDate ='$closingdate', Status=0 WHERE SocID='$socid' AND Status = 1")or die(mysql_error()); 
+			$sql = mysql_query("INSERT INTO `socmonitoring` (`ID`, `SocID`, `TypeID`, `NameCustodian`, `Cell`, `StatusID`, `FinStatus`,`PresentDate`, `ClosingDate`, `Rem`, `Status`) VALUES (NULL, '$socid', '$soctype', '$custodian', '$cell', '$status', '$finstatus', '$presentdate', '','Modified', 1)") or die(mysql_error());						
+			$sql = mysql_query("UPDATE societies SET Address = '$address', MandalID = '$mandal' WHERE SocID='$socid'") or die(mysql_error());
 		}		
 	}
 	else {
-		header("location:admin.php");
+		header("location:auditors.php");
 	}	
-
+	
 ?>
 	
 			
@@ -59,11 +60,13 @@
 									<div class="col-md-2"><?php echo $result1['SocStatus']; ?> </div>
 									<label class="col-md-1">Financial Status</label>
 									<div class="col-md-2"><?php echo $finstatus; ?> </div>						
-									<div class="col-md-4"><a href="admin.php"><button class ="btn btn-primary"> Home </button> </a> </div>
+									<div class="col-md-4"><a href="auditors.php"><button class ="btn btn-primary"> Home </button> </a> </div>
 								</div>
 							</div>		
 						</div>
 					</div>
+                    
+
 				</div>
 			</div>
 

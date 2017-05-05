@@ -2,24 +2,23 @@
     include("session.php");
     include("sidepan.php");
 	$sql = mysql_query("SELECT
-				  count(*),
-				  soctypes.Types,
-				  soctypes.ID
-				FROM
-				  societies
-				  INNER JOIN soctypes ON soctypes.ID = societies.Type
-				GROUP BY
-				  soctypes.Types");
+						  count(*),
+						  soctypes.Types,
+						  soctypes.ID,
+						  sum(case when allotment.Status = 1 then 1 else 0 end) ComCount,
+						  sum(case when allotment.Status = 0 then 1 else 0 end) BalCount
+						FROM
+						  allotment
+						  INNER JOIN soctypes ON soctypes.ID = allotment.TypeID
+						GROUP BY
+							soctypes.Types");
 	$count = mysql_num_rows($sql);	
 
 ?>
 	
 			
 			<div class="content">
-				<div class="container-fluid">
-					<div class="col-md-2">
-                        <a href="admin_addsoc.php"> <button type="button" class="btn btn-success">Add New Society</button> </a>
-                    </div>  
+				<div class="container-fluid">					
                      <div class="card">
 						<div class="card-header" data-background-color="green">
 							<h4 class="title">Working Societies List</h4>
@@ -32,23 +31,32 @@
 								<tr>
 									<th>Sl.No.</th>
 									<th>Type of Society </th>									
-									<th>Total </th>									
+									<th>Total Societies</th>									
+									<th>Total Allotted</th>
+									<th>Balance</th>										
 								</tr>
 								</thead>
 						  
 							<?php if($count>0){
 								$slno=1;
 								$total = 0;
+								$comtotal = 0;
+								$baltotal = 0;
 								while($result = mysql_fetch_assoc($sql))
 								{ 	
 									echo "<tr><td>".$slno."</td>";										
 									echo "<td>
-											  <a href='admin_viewsocdet.php?types=".$result['ID']."'>".$result['Types']."</a>							  
+											  <a href='admin_allotment.php?types=".$result['ID']."'>".$result['Types']."</a>							  
 										  </td>";									
-									echo "<td>".$result['count(*)']."</td></tr>";					
+									echo "<td>".$result['count(*)']."</td>";									
+									echo "<td>".$result['ComCount']."</td>";
+									echo "<td>".$result['BalCount']."</td></tr>";									
+										
 																		
 									$slno = $slno +1;
-									$total = $total + $result['count(*)'];	
+									$total = $total + $result['count(*)'];
+									$comtotal = $comtotal + $result['ComCount'];
+									$baltotal = $baltotal + $result['BalCount']; 		
 								}				
 							}
 							?>
@@ -56,6 +64,8 @@
 									<td></td>
 									<td>Total Societies</td>
 									<td><?php echo $total;?></td>
+									<td><?php echo $comtotal;?></td>
+									<td><?php echo $baltotal;?></td>
 								</tr>
 							</table>
 						</div>

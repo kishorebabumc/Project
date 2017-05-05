@@ -53,12 +53,12 @@
 									<i class="material-icons">info_outline</i>
 								</div>
 								<div class="card-content">
-									<p class="category">Fixed Issues</p>
-									<h3 class="title">75</h3>
+									<p class="category">Pending</p>
+									<h3 class="title"><?php echo $result1; ?></h3>
 								</div>
 								<div class="card-footer">
 									<div class="stats">
-										<i class="material-icons">local_offer</i> Tracked from Github
+										<i class="material-icons">local_offer</i> 
 									</div>
 								</div>
 							</div>
@@ -70,12 +70,12 @@
 									<i class="fa fa-twitter"></i>
 								</div>
 								<div class="card-content">
-									<p class="category">Followers</p>
-									<h3 class="title">+245</h3>
+									<p class="category">Completed</p>
+									<h3 class="title">0</h3>
 								</div>
 								<div class="card-footer">
 									<div class="stats">
-										<i class="material-icons">update</i> Just Updated
+										<i class="material-icons">update</i> 
 									</div>
 								</div>
 							</div>
@@ -307,41 +307,40 @@
 						<div class="col-lg-6 col-md-12">
 							<div class="card">
 	                            <div class="card-header" data-background-color="orange">
-	                                <h4 class="title">Employees Stats</h4>
-	                                <p class="category">New employees on 15th September, 2016</p>
+	                                <h4 class="title">Pending Issues</h4>
+	                                <p class="category">Audit Certificates to be issued Societies</p>
 	                            </div>
 	                            <div class="card-content table-responsive">
 	                                <table class="table table-hover">
 	                                    <thead class="text-warning">
-	                                        <th>ID</th>
-	                                    	<th>Name</th>
-	                                    	<th>Salary</th>
-	                                    	<th>Country</th>
+	                                        <th>Employee</th>
+	                                    	<th>Soceity</th>
+	                                    	<th>Date of Submission</th>	                                    	
 	                                    </thead>
 	                                    <tbody>
 	                                        <tr>
 	                                        	<td>1</td>
-	                                        	<td>Dakota Rice</td>
-	                                        	<td>$36,738</td>
-	                                        	<td>Niger</td>
+	                                        	<td></td>
+	                                        	<td></td>
+	                                        	
 	                                        </tr>
 	                                        <tr>
 	                                        	<td>2</td>
-	                                        	<td>Minerva Hooper</td>
-	                                        	<td>$23,789</td>
-	                                        	<td>Curaçao</td>
+	                                        	<td></td>
+	                                        	<td></td>
+	                                        	
 	                                        </tr>
 	                                        <tr>
 	                                        	<td>3</td>
-	                                        	<td>Sage Rodriguez</td>
-	                                        	<td>$56,142</td>
-	                                        	<td>Netherlands</td>
+	                                        	<td></td>
+	                                        	<td></td>
+	                                        	
 	                                        </tr>
 	                                        <tr>
 	                                        	<td>4</td>
-	                                        	<td>Philip Chaney</td>
-	                                        	<td>$38,735</td>
-	                                        	<td>Korea, South</td>
+	                                        	<td></td>
+	                                        	<td></td>
+	                                        	
 	                                        </tr>
 	                                    </tbody>
 	                                </table>
